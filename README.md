@@ -1,92 +1,121 @@
-# M&D Realty Investments LP — sitio web
+# M&D Realty Investments LP — website
 
-Sitio en PHP plano (sin framework, sin build), misma estructura que
-[M&D Buildings LLC](https://github.com/Sell-U-app/M-DLLC), su marca hermana.
-Corre igual en Railway (Docker) y en un hosting compartido tipo NameCheap.
+Plain PHP site (no framework, no build step), same structure as
+[M&D Buildings LLC](https://github.com/Sell-U-app/M-DLLC), its sister brand.
+Runs the same on Railway (Docker) and on shared hosting such as NameCheap.
+Content is in English.
 
-## Estructura
+## Structure
 
 ```
-index.php        Home: hero + ciclo de operación, estrategias, tabs LP/GP, proceso, portafolio, vehículos, FAQ
-estrategia.php   Las 6 tesis en detalle, filtro de entrada y sección de riesgos
-portafolio.php   Tipos de operación + nota de que no es historial de resultados
-contacto.php     Formulario para inversionistas (mail() + respaldo CSV)
-inc/config.php   ÚNICO archivo a editar: textos, colores, contacto, listas, aviso legal
-inc/head.php     <head>, design-system CSS, topbar y navegación
-inc/footer.php   Footer con aviso legal, animaciones y botón de WhatsApp
-inc/mailer.php   Validación, honeypot, envío y log de leads
-uploads/         Logos y favicon (del kit de marca)
-docs/            Manual de marca en PDF
-storage/         leads.csv (se crea solo, ignorado por git)
+index.php           Home: hero + deal cycle, strategies, LP/GP tabs, process, portfolio, vehicles, FAQ
+strategy.php        The six theses in detail, entry filter and risk section
+portfolio.php       Deal types, with a note that it is not a track record
+contact.php         Investor inquiry form (mail() + CSV fallback)
+disclosures.php     ┐
+privacy.php         │ Policy pages. Each one is three lines; the content
+terms.php           │ lives in inc/legal.php and is rendered by inc/legal-view.php
+cookies.php         │
+accessibility.php   ┘
+inc/config.php      THE file to edit: copy, colors, contact details, lists, footer notice
+inc/legal.php       Policy copy for all five legal pages
+inc/legal-view.php  Shared renderer for policy pages (table of contents, anchors)
+inc/head.php        <head>, design system, top bar and navigation
+inc/footer.php      Footer with the legal notice, animations and WhatsApp button
+inc/mailer.php      Validation, honeypot, mail() and lead log
+uploads/            Logos and favicon from the brand kit
+docs/               Brand manual (PDF)
+storage/            leads.csv (created automatically, git-ignored)
 ```
 
-## Marca
+## Brand
 
-Del manual (`docs/manual-de-marca.pdf`):
+From `docs/brand-manual.pdf`:
 
-| Color | Hex | Uso |
+| Color | Hex | Use |
 |---|---|---|
-| Negro | `#101010` | Fondo dominante |
-| Magenta capital | `#D4145A` | Acento, nunca más del 20% |
-| Hueso | `#F5F2EE` | Texto |
-| Blanco | `#FFFFFF` | Texto sobre magenta |
+| Black | `#101010` | Dominant background |
+| Capital magenta | `#D4145A` | Accent, never more than 20% |
+| Bone | `#F5F2EE` | Text |
+| White | `#FFFFFF` | Text on magenta |
 
-Tipografía Montserrat (headings) + Inter (cuerpo). El sitio usa el logo
-horizontal en escritorio y el principal en móvil, ambos en su versión blanca
-sobre fondo negro, como indica el manual. El magenta se limita a botones,
-acentos y barras del símbolo.
+Montserrat for headings, Inter for body. The site uses the horizontal lockup
+in its white-on-black version, sized by width on mobile so it never drops
+below the 180 px minimum the manual requires. Magenta is limited to buttons,
+accents and the logo bars.
 
-## Aviso legal — importante
+## Legal — read this before publishing
 
-Es un sitio de una **Limited Partnership de inversión**. Deliberadamente **no
-incluye cifras de rentabilidad, capital administrado ni historial de
-resultados**, porque afirmar eso sin cifras auditadas y revisión legal es un
-riesgo regulatorio real (SEC / Reg D).
+This is the website of a **private investment partnership**. The site
+deliberately carries **no return figures, no assets under management and no
+track record**, because claiming those without audited numbers and counsel
+review is a real regulatory exposure.
 
-Antes de publicar, revisa con el abogado:
+What is already in place:
 
-- El aviso legal de `$SITE['disclaimer']` en `inc/config.php`.
-- Si la LP puede promocionarse públicamente o si la oferta es privada
-  (Reg D 506(b) vs 506(c) cambian lo que se puede decir en una web abierta).
-- Los requisitos de inversionista acreditado que menciones en el FAQ.
-- `$STATS` en `inc/config.php` describe el marco de la sociedad, no
-  rendimientos. Si vas a poner cifras, que sean auditadas.
+- `disclosures.php` — no offer of securities, not advice, risk of loss, no
+  guarantee of results, forward-looking statements, illiquidity, investor
+  eligibility, the M&D Buildings LLC conflict of interest.
+- A short notice in the footer of every page (`$SITE['disclaimer']`).
+- Notes on the portfolio page, the vehicles section and the risk section.
+- The contact form states that it creates no commitment and does not accept funds.
 
-## Editar el contenido
+What **you** still have to do:
 
-Todo vive en `inc/config.php`: `$SITE`, `$THEME`, `$ESTRATEGIAS`, `$TABS`,
-`$PROCESO`, `$STATS`, `$PORTAFOLIO`, `$VEHICULOS`, `$DIFERENCIADORES`, `$FAQ`.
+1. Have securities counsel review every legal page. These are plain-language
+   templates, not legal advice.
+2. Confirm with counsel whether the offering runs under **Rule 506(b) or
+   506(c)**. Under 506(b), general solicitation is prohibited and even a
+   public marketing site describing the offering can be a problem. This
+   determines what may stay on a public URL at all.
+3. Fill in the `$SITE` legal keys:
 
-**Pendiente antes de publicar:** teléfono, email, WhatsApp, dirección y estado
-de registro de la LP (hoy son placeholders `000`), y los tickets mínimos de
-`$VEHICULOS`.
+| Key | What it is |
+|---|---|
+| `state` | State of formation and governing law (currently `Florida`) |
+| `legal_address` | Full mailing address shown in the policies |
+| `legal_email` | Address for privacy and legal requests |
+| `legal_updated` | "Last updated" date on every policy page |
 
-## Fotos
+The Cookie Policy states the site sets no advertising or analytics cookies.
+That is true as published. If you add a pixel or analytics, update that page
+and add a consent banner **before** the tags go live.
 
-Las áreas de imagen usan un patrón CSS (`.blueprint`). Para poner fotos reales,
-súbelas a `uploads/` y cambia `<div class="im blueprint">` por
-`<img src="uploads/mi-foto.jpg" alt="...">`.
+## Editing content
 
-## Correr en local
+Everything lives in `inc/config.php`: `$SITE`, `$THEME`, `$NAV`, `$LEGAL_NAV`,
+`$STRATEGIES`, `$TABS`, `$PROCESS`, `$STATS`, `$PORTFOLIO`, `$VEHICLES`,
+`$DIFFERENTIATORS`, `$FAQ`.
+
+**Still pending:** phone, email, WhatsApp, address and the minimum tickets in
+`$VEHICLES` are placeholders.
+
+## Photos
+
+Image areas use a CSS pattern (`.blueprint`). For real photos, drop them in
+`uploads/` and replace `<div class="im blueprint">` with
+`<img src="uploads/my-photo.jpg" alt="...">`.
+
+## Run locally
 
 ```bash
 php -S localhost:8000
 ```
 
-## Deploy en Railway
+## Deploy on Railway
 
-Trae `Dockerfile` y `railway.json`. New Project → Deploy from GitHub repo.
+Ships `Dockerfile` and `railway.json`. New Project → Deploy from GitHub repo.
 
-Apache escucha en `$PORT`. El `CMD` desactiva `mpm_event`/`mpm_worker` **en
-runtime**: la imagen `php:*-apache` arranca en Railway con dos MPM cargados y
-Apache aborta con `More than one MPM loaded` si no se corrige ahí.
+Apache listens on `$PORT`. The `CMD` disables `mpm_event`/`mpm_worker` **at
+runtime**: on Railway the `php:*-apache` image starts with two MPMs loaded and
+Apache aborts with `More than one MPM loaded` if this is not fixed there.
 
-> `mail()` no funciona en el contenedor. El formulario guarda cada lead en
-> `storage/leads.csv`. Para recibir correos hay que conectar un SMTP (Resend,
-> Brevo, SendGrid). El disco del contenedor es efímero: si vas a depender del
-> CSV, monta un volumen en `/var/www/html/storage`.
+> `mail()` does not work inside the container. The form stores every lead in
+> `storage/leads.csv`. To actually receive email, connect an SMTP provider
+> (Resend, Brevo, SendGrid). Container storage is ephemeral: if you rely on
+> the CSV, mount a volume at `/var/www/html/storage`.
 
-## Deploy en NameCheap
+## Deploy on NameCheap
 
-Sube el contenido de la carpeta (sin `Dockerfile`, `railway.json`,
-`.dockerignore`) a `public_html/`. Carpetas 755, archivos 644.
+Upload the folder contents (minus `Dockerfile`, `railway.json`,
+`.dockerignore`) to `public_html/`. Directories 755, files 644.
