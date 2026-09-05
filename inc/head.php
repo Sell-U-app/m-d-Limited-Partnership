@@ -29,8 +29,10 @@ $ld = [
     'name'     => $SITE['name'],
     'url'      => $base_url . '/',
     'email'    => $SITE['email'] ?? '',
-    'telephone'=> $SITE['phone_tel'] ?? '',
 ];
+if (!empty($SITE['phone_tel'])) {
+    $ld['telephone'] = $SITE['phone_tel'];
+}
 if (!empty($SITE['address'])) {
     $ld['address'] = ['@type' => 'PostalAddress', 'streetAddress' => $SITE['address']];
 }
@@ -183,12 +185,11 @@ details.faq[open] summary::after{content:"2"}
 </head>
 <body>
 <a href="#main" style="position:absolute;left:-9999px;top:0;background:var(--primary);color:var(--primary-ink);padding:12px 20px;z-index:100;">Skip to content</a>
-<?php if (!empty($SITE['phone']) || !empty($SITE['hours'])): ?>
+<?php if (!empty($SITE['license']) || !empty($SITE['email'])): ?>
 <div class="topbar">
   <div class="container">
-    <span class="muted"><?= htmlspecialchars($SITE['license'] ?? '') ?><?= !empty($SITE['hours']) ? ' · ' . htmlspecialchars($SITE['hours']) : '' ?></span>
+    <span class="muted"><?= htmlspecialchars($SITE['license'] ?? '') ?></span>
     <span style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center">
-      <?php if (!empty($SITE['phone'])): ?><a href="tel:<?= htmlspecialchars($SITE['phone_tel']) ?>">&#9742; <?= htmlspecialchars($SITE['phone']) ?></a><?php endif; ?>
       <?php if (!empty($SITE['email'])): ?><a href="mailto:<?= htmlspecialchars($SITE['email']) ?>"><?= htmlspecialchars($SITE['email']) ?></a><?php endif; ?>
     </span>
   </div>
