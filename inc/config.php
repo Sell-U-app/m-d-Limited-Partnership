@@ -111,11 +111,11 @@ $PORTFOLIO = [];
 /** Segments for the ticker */
 $TICKER = ['Residential value-add', 'Build-to-rent', 'Small multifamily', 'Land and development', 'Permitting', 'Construction', 'Lease-up', 'Pennsylvania'];
 
-/**
- * The people behind the partnership: [name, role, note].
- * Left empty on purpose. Add only verified profiles.
- */
-$TEAM = [];
+/** The people behind the partnership: [name, role, note] */
+$TEAM = [
+    ['Andrew Michael Martinez Leal',   'Partner', 'Leads acquisitions and construction in Pennsylvania, through M&D Buildings LLC.'],
+    ['David Alejandro Nassar Cardona', 'Partner', 'Chief executive of M&D Developments Corp, the general partner of the partnership.'],
+];
 
 $FAQ = [
     ['Where do you work?', 'Pennsylvania and the surrounding markets, with the partnership organised in Wyoming.'],
