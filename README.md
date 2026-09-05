@@ -60,16 +60,18 @@ Two consequences worth keeping in mind when editing:
    anywhere on the site, a disclaimer only draws attention to the thing it
    is trying to avoid.
 
-Still to fill in `$SITE`: `address` and `legal_address` are placeholders, and
-`$TEAM` is empty on purpose — add only verified profiles.
+Still to fill in `$SITE`: `$TEAM` is empty on purpose — add only verified
+profiles.
 
-`disclosures.php` still exists on disk but is no longer linked from anywhere.
-It is the securities disclaimer page from the previous version of the site.
+`disclosures.php` was removed. It was the securities disclaimer page from the
+previous version of the site, and its content block is out of `inc/legal.php`
+too. It is in the git history if it is ever needed again.
 
-The four policy pages (privacy, terms, cookies, accessibility) were left as
-they were. They still carry wording from the fundraising site — Privacy
-describes form fields that no longer exist, and Terms links to Important
-Disclosures. They need a pass.
+The four policy pages (privacy, terms, cookies, accessibility) were rewritten
+to match the site as it is now: Privacy lists the actual form fields, the
+subscription section is gone, Terms no longer links to Important Disclosures
+and no longer talks about figures or returns, and governing law follows
+`$SITE['state']`, now Wyoming.
 
 The Cookie Policy states the site sets no advertising or analytics cookies.
 That is true as published. If you add a pixel or analytics, update that page
