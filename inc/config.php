@@ -6,9 +6,8 @@
  * Sister company of M&D Buildings LLC. Palette and rules: docs/brand-manual.pdf
  * Manual rule: black leads, magenta is an accent (never more than 20%).
  *
- * TODO (real data still pending): the operating address in 'address' and
- * 'legal_address', and the partner profiles in $TEAM (left empty on purpose —
- * do not fill it with anything that is not verified).
+ * TODO (real data still pending): the partner profiles in $TEAM, left empty
+ * on purpose — do not fill it with anything that is not verified.
  */
 
 $SITE = [
@@ -24,13 +23,13 @@ $SITE = [
     'phone'      => '',
     'phone_tel'  => '',
     'whatsapp'   => '',
-    'address'    => '[Street address, City, State ZIP]',
+    'address'    => '30 N Gould St Ste N, Sheridan, WY 82801',
     'hours'      => '',
     'license'    => 'A Wyoming limited partnership · General partner: M&D Developments Corp',
 
-    // --- Legal (REPLACE the address before publishing) ---
+    // --- Legal ---
     'state'         => 'Wyoming',            // state of formation and governing law
-    'legal_address' => '[Street address, City, State ZIP]',
+    'legal_address' => '30 N Gould St Ste N, Sheridan, WY 82801',
     'legal_email'   => 'legal@mddevelopments.us',
     'legal_updated' => 'September 4, 2026',  // last updated date shown on policy pages
 
