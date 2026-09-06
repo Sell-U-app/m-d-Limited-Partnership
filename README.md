@@ -8,10 +8,10 @@ Content is in English.
 ## Structure
 
 ```
-index.php           Home: hero + deal cycle, strategies, LP/GP tabs, process, portfolio, vehicles, FAQ
-strategy.php        The six theses in detail, entry filter and risk section
-portfolio.php       Deal types, with a note that it is not a track record
-contact.php         Investor inquiry form (mail() + CSV fallback)
+index.php           Home: hero, what we build, how a project runs, the group, projects, about, FAQ
+strategy.php        The four segments in detail and the diligence checklist
+portfolio.php       Projects. Empty state until the first properties are delivered
+contact.php         Contact form: name, email, subject, message (mail() + CSV fallback)
 disclosures.php     ┐
 privacy.php         │ Policy pages. Each one is three lines; the content
 terms.php           │ lives in inc/legal.php and is rendered by inc/legal-view.php
@@ -46,36 +46,32 @@ accents and the logo bars.
 
 ## Legal — read this before publishing
 
-This is the website of a **private investment partnership**. The site
-deliberately carries **no return figures, no assets under management and no
-track record**, because claiming those without audited numbers and counsel
-review is a real regulatory exposure.
+The site presents the partnership by what it develops. It describes no
+participation of any kind and addresses counterparties, brokers, contractors
+and landowners — not investors.
 
-What is already in place:
+Two consequences worth keeping in mind when editing:
 
-- `disclosures.php` — no offer of securities, not advice, risk of loss, no
-  guarantee of results, forward-looking statements, illiquidity, investor
-  eligibility, the M&D Buildings LLC conflict of interest.
-- A short notice in the footer of every page (`$SITE['disclaimer']`).
-- Notes on the portfolio page, the vehicles section and the risk section.
-- The contact form states that it creates no commitment and does not accept funds.
+1. Do not reintroduce the vocabulary of fundraising. `invest`, `investor`,
+   `returns`, `distributions`, `ticket`, `minimum`, `subscription`,
+   `offering`, `fund` and `loan` are out by design. The legal name contains
+   "Realty Investments" and of course stays.
+2. Do not add disclaimers about what the company is not. With no offer
+   anywhere on the site, a disclaimer only draws attention to the thing it
+   is trying to avoid.
 
-What **you** still have to do:
+Still to fill in `$SITE`: `$TEAM` is empty on purpose — add only verified
+profiles.
 
-1. Have securities counsel review every legal page. These are plain-language
-   templates, not legal advice.
-2. Confirm with counsel whether the offering runs under **Rule 506(b) or
-   506(c)**. Under 506(b), general solicitation is prohibited and even a
-   public marketing site describing the offering can be a problem. This
-   determines what may stay on a public URL at all.
-3. Fill in the `$SITE` legal keys:
+`disclosures.php` was removed. It was the securities disclaimer page from the
+previous version of the site, and its content block is out of `inc/legal.php`
+too. It is in the git history if it is ever needed again.
 
-| Key | What it is |
-|---|---|
-| `state` | State of formation and governing law (currently `Florida`) |
-| `legal_address` | Full mailing address shown in the policies |
-| `legal_email` | Address for privacy and legal requests |
-| `legal_updated` | "Last updated" date on every policy page |
+The four policy pages (privacy, terms, cookies, accessibility) were rewritten
+to match the site as it is now: Privacy lists the actual form fields, the
+subscription section is gone, Terms no longer links to Important Disclosures
+and no longer talks about figures or returns, and governing law follows
+`$SITE['state']`, now Wyoming.
 
 The Cookie Policy states the site sets no advertising or analytics cookies.
 That is true as published. If you add a pixel or analytics, update that page
@@ -84,11 +80,11 @@ and add a consent banner **before** the tags go live.
 ## Editing content
 
 Everything lives in `inc/config.php`: `$SITE`, `$THEME`, `$NAV`, `$LEGAL_NAV`,
-`$STRATEGIES`, `$TABS`, `$PROCESS`, `$STATS`, `$PORTFOLIO`, `$VEHICLES`,
-`$DIFFERENTIATORS`, `$FAQ`.
+`$SEGMENTS`, `$PROCESS`, `$GROUP`, `$PORTFOLIO`, `$TICKER`, `$TEAM`, `$FAQ`.
 
-**Still pending:** phone, email, WhatsApp, address and the minimum tickets in
-`$VEHICLES` are placeholders.
+To publish the first project, add an entry to `$PORTFOLIO` as
+`[title, segment, summary, status]`. Location, asset type, scope of work and
+status only — never prices, margins or performance.
 
 ## Photos
 
